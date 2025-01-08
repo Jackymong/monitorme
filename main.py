@@ -46,7 +46,7 @@ async def check_status(request: Request):
         # Check MongoDB connection
         mongo_client.admin.command("ping")
     except Exception as e:
-        mongo_status = f"Unhealthy: {e}"
+        mongo_status = "Stop"
 
     try:
         # Check PostgreSQL connection
@@ -55,7 +55,7 @@ async def check_status(request: Request):
         cursor.execute("SELECT 1")
         cursor.close()
     except Exception as e:
-        postgres_status = f"Unhealthy: {e}"
+        postgres_status = "Stop"
 
     return templates.TemplateResponse(
         "status.html",
